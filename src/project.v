@@ -52,7 +52,7 @@ module tt_um_rebeccargb_styler (
     ui_in[2] ? a8 :
     ui_in[1] ? b8 :
     ui_in[0] ? {2'b0, ctrl} :
-    {scanlineOut, scanlineOut}
+    {4'b0, scanlineOut}
   );
 
   assign uo_out  = f8;
