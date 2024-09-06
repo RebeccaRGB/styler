@@ -115,7 +115,7 @@ module styler_invert (
 	input wire faintPhase,
 	input wire solidLine,
 	input wire xPostMirror,
-	output wire bitmapOut
+	output wire [15:0] bitmapOut
 );
 
 	wire [15:0] b0 = bitmapIn;
