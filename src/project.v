@@ -24,7 +24,7 @@ module tt_um_rebeccargb_styler (
   reg [24:0] attr;
 
   styler s(
-    scanlineIn, bitmapIn,
+    .scanlineIn(scanlineIn), .bitmapIn(bitmapIn),
     .xoffset(attr[0]), .xscale(attr[1]), .yoffset(attr[2]), .yscale(attr[3]),
     .xPreMirror(attr[4]), .xPostMirror(attr[5]), .yPreMirror(attr[6]), .yPostMirror(attr[7]),
     .bold(attr[8]), .faint(attr[9]), .italic(attr[10]), .reverseItalic(attr[11]),
@@ -35,7 +35,7 @@ module tt_um_rebeccargb_styler (
     .blinkEnable(ctrl[5]), .lineEnable(ctrl[4]), .cursorEnable(ctrl[3]),
     .cursorBlink(ctrl[2]), .cursorTop(ctrl[1]), .cursorBottom(ctrl[0]),
     .faintPhase(ui_in[3]), .blinkPhase(ui_in[4]), .cursorPhase(ui_in[5]),
-    scanlineOut, bitmapOut
+    .scanlineOut(scanlineOut), .bitmapOut(bitmapOut)
   );
 
   wire [7:0] a8 = (
