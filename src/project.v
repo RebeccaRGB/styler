@@ -59,19 +59,29 @@ module tt_um_rebeccargb_styler (
   assign uio_out = f8;
   assign uio_oe  = {8{~ui_in[6]}};
 
-  always @(ui_in or uio_in) begin
-    if (ui_in[7] == 0) begin
-      case (ui_in[2:0])
-        0: scanlineIn <= uio_in[3:0];
-        1: ctrl <= uio_in[5:0];
-        2: bitmapIn[7:0] <= uio_in;
-        3: bitmapIn[15:8] <= uio_in;
-        4: attr[7:0] <= uio_in;
-        5: attr[15:8] <= uio_in;
-        6: attr[23:16] <= uio_in;
-        7: attr[24] <= uio_in[0];
-      endcase
-    end
+  task reset; begin
+    scanlineIn <= 0;
+    ctrl <= 6'h3C;
+    bitmapIn <= 0;
+    attr <= 0;
+  end endtask
+
+  task write; begin
+    case (ui_in[2:0])
+      0: scanlineIn <= uio_in[3:0];
+      1: ctrl <= uio_in[5:0];
+      2: bitmapIn[7:0] <= uio_in;
+      3: bitmapIn[15:8] <= uio_in;
+      4: attr[7:0] <= uio_in;
+      5: attr[15:8] <= uio_in;
+      6: attr[23:16] <= uio_in;
+      7: attr[24] <= uio_in[0];
+    endcase
+  end endtask
+
+  always @(posedge clk) begin
+    if (~rst_n) reset;
+    else if (~ui_in[7]) write;
   end
 
   // List all unused inputs to prevent warnings

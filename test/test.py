@@ -63,13 +63,17 @@ async def test_project(dut):
         b2 = await sty_read(BMAP + 1)
         return b1 | (b2 << 8)
 
-    await sty_write(LINE, 0)
-    await sty_write(CTRL, 0x3C)
-    await bmp_write(0)
-
     assert await sty_read(LINE) == 0
     assert await sty_read(CTRL) == 0x3C
     assert await bmp_read() == 0
+
+    await sty_write(LINE, 15)
+    await sty_write(CTRL, 0x3F)
+    await bmp_write(0xFFFF)
+
+    assert await sty_read(LINE) == 15
+    assert await sty_read(CTRL) == 0x3F
+    assert await bmp_read() == 0xFFFF
 
     # Keep testing the module by changing the input values, waiting for
     # one or more clock cycles, and asserting the expected output values.
