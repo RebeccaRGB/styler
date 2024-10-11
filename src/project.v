@@ -60,10 +60,10 @@ module tt_um_rebeccargb_styler (
   assign uio_oe  = {8{~ui_in[6]}};
 
   task reset; begin
-    scanlineIn <= 0;
+    scanlineIn <= 4'h0;
     ctrl <= 6'h3C;
-    bitmapIn <= 0;
-    attr <= 0;
+    bitmapIn <= 16'h0000;
+    attr <= 25'h0000000;
   end endtask
 
   task write; begin
@@ -85,6 +85,6 @@ module tt_um_rebeccargb_styler (
   end
 
   // List all unused inputs to prevent warnings
-  wire _unused = &{ena, clk, rst_n, 1'b0};
+  wire _unused_ok = &{ena, clk, rst_n};
 
 endmodule
