@@ -23,6 +23,11 @@ module tt_um_rebeccargb_styler (
   wire [15:0] bitmapOut;
   reg [24:0] attr;
 
+  wire faintPhase = ui_in[3];
+  wire blinkPhase = ui_in[4];
+  wire cursorPhase = ~ui_in[4];
+  wire cursorEnable = ui_in[5] & ctrl[3];
+
   styler s(
     .scanlineIn(scanlineIn), .bitmapIn(bitmapIn),
     .xoffset(attr[0]), .xscale(attr[1]), .yoffset(attr[2]), .yscale(attr[3]),
@@ -32,9 +37,9 @@ module tt_um_rebeccargb_styler (
     .underline(attr[16]), .doubleUnderline(attr[17]), .dottedUnderline(attr[18]),
     .strikethru(attr[19]), .doubleStrikethru(attr[20]), .dottedStrikethru(attr[21]),
     .overline(attr[22]), .doubleOverline(attr[23]), .dottedOverline(attr[24]),
-    .blinkEnable(ctrl[5]), .lineEnable(ctrl[4]), .cursorEnable(ctrl[3]),
+    .blinkEnable(ctrl[5]), .lineEnable(ctrl[4]), .cursorEnable(cursorEnable),
     .cursorBlink(ctrl[2]), .cursorTop(ctrl[1]), .cursorBottom(ctrl[0]),
-    .faintPhase(ui_in[3]), .blinkPhase(ui_in[4]), .cursorPhase(ui_in[5]),
+    .faintPhase(faintPhase), .blinkPhase(blinkPhase), .cursorPhase(cursorPhase),
     .scanlineOut(scanlineOut), .bitmapOut(bitmapOut)
   );
 

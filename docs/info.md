@@ -79,14 +79,14 @@ The input pin assignments are as follows:
 | 1   | A1 (address line 1).                      |
 | 2   | A2 (address line 2).                      |
 | 3   | Faint text polarity (even or odd pixels). |
-| 4   | Text blink phase.                         |
-| 5   | Cursor blink phase.                       |
+| 4   | Blink phase.                              |
+| 5   | Cursor enable.                            |
 | 6   | /OE (output enable).                      |
 | 7   | /WE (write enable).                       |
 
 ## How to test
 
-Test cases are to be determined.
+The `test.py` file covers a variety of test cases.
 
 ## External hardware
 

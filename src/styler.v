@@ -123,7 +123,7 @@ module styler_invert (
 	wire [15:0] b2 = faint ? (b1 & (faintPhase ? 16'hAAAA : 16'h5555)) : b1;
 	wire [15:0] b3 = hidden ? 16'h0000 : b2;
 	wire [15:0] b4 = (blink & blinkPhase & blinkEnable) ? 16'h0000 : b3;
-	wire [15:0] b5 = (alternate & blinkPhase & blinkEnable) ? (b4 ^ 16'hFFFF) : b4;
+	wire [15:0] b5 = (alternate & (blinkPhase | ~blinkEnable)) ? (b4 ^ 16'hFFFF) : b4;
 	wire [15:0] b6 = inverse ? (b5 ^ 16'hFFFF) : b5;
 	wire [15:0] b7 = xPostMirror ? {
 		b6[0], b6[1], b6[2], b6[3], b6[4], b6[5], b6[6], b6[7],

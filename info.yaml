@@ -26,9 +26,9 @@ pinout:
   ui[0]: "A0 (address)"
   ui[1]: "A1 (address)"
   ui[2]: "A2 (address)"
-  ui[3]: "dim text phase"
-  ui[4]: "text blink phase"
-  ui[5]: "cursor blink phase"
+  ui[3]: "faint text polarity"
+  ui[4]: "blink phase"
+  ui[5]: "cursor enable"
   ui[6]: "/OE (output enable)"
   ui[7]: "/WE (write enable)"
 
