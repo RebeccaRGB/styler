@@ -75,6 +75,7 @@ module styler_style (
 		b0[0], b0[1], b0[2], b0[3], b0[4], b0[5], b0[6], b0[7],
 		b0[8], b0[9], b0[10], b0[11], b0[12], b0[13], b0[14], b0[15]
 	} : b0;
+
 	wire [15:0] b2 = (
 		(italic & ~reverse) ? (
 			(scanline < 4) ? {2'b00, b1[15:2]} :
@@ -90,12 +91,14 @@ module styler_style (
 		) :
 		b1
 	);
+
 	wire [15:0] b3 = bold ? (b2 | {1'b0, b2[15:1]}) : b2;
 	wire [15:0] b4 = xoffset ? {b3[7:0], b3[15:8]} : b3;
 	wire [15:0] b5 = xscale ? {
 		b4[15], b4[15], b4[14], b4[14], b4[13], b4[13], b4[12], b4[12],
 		b4[11], b4[11], b4[10], b4[10], b4[9], b4[9], b4[8], b4[8]
 	} : b4;
+
 	wire [15:0] b6 = solidLine ? 16'hFFFF : b5;
 	wire [15:0] b7 = faint ? (b6 & (faintPhase ? 16'h5555 : 16'hAAAA)) : b6;
 
@@ -126,6 +129,7 @@ module styler_invert (
 	wire [15:0] b4 = (blink & blinkPhase & blinkEnable) ? 16'h0000 : b3;
 	wire [15:0] b5 = (alternate & (blinkPhase | ~blinkEnable)) ? (b4 ^ 16'hFFFF) : b4;
 	wire [15:0] b6 = inverse ? (b5 ^ 16'hFFFF) : b5;
+
 	wire [15:0] b7 = xPostMirror ? {
 		b6[0], b6[1], b6[2], b6[3], b6[4], b6[5], b6[6], b6[7],
 		b6[8], b6[9], b6[10], b6[11], b6[12], b6[13], b6[14], b6[15]
