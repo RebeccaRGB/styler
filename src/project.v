@@ -18,14 +18,14 @@ module tt_um_rebeccargb_styler (
 
   reg [3:0] scanlineIn;
   wire [3:0] scanlineOut;
-  reg [5:0] ctrl;
+  reg [7:0] ctrl;
   reg [15:0] bitmapIn;
   wire [15:0] bitmapOut;
   reg [24:0] attr;
 
-  wire faintPhase = ui_in[3];
+  wire faintPhase = ui_in[3] & ~ctrl[7];
   wire blinkPhase = ui_in[4];
-  wire cursorPhase = ~ui_in[4];
+  wire cursorPhase = ctrl[7] ? ui_in[3] : ~ui_in[4];
   wire cursorEnable = ui_in[5] & ctrl[3];
 
   styler s(
@@ -56,7 +56,7 @@ module tt_um_rebeccargb_styler (
   wire [7:0] f8 = (
     ui_in[2] ? a8 :
     ui_in[1] ? b8 :
-    ui_in[0] ? {2'b0, ctrl} :
+    ui_in[0] ? ctrl :
     {4'b0, scanlineOut}
   );
 
@@ -66,7 +66,7 @@ module tt_um_rebeccargb_styler (
 
   task reset; begin
     scanlineIn <= 4'h0;
-    ctrl <= 6'h3C;
+    ctrl <= 8'h3C;
     bitmapIn <= 16'h0000;
     attr <= 25'h0000000;
   end endtask
@@ -74,7 +74,7 @@ module tt_um_rebeccargb_styler (
   task write; begin
     case (ui_in[2:0])
       0: scanlineIn <= uio_in[3:0];
-      1: ctrl <= uio_in[5:0];
+      1: ctrl <= uio_in;
       2: bitmapIn[7:0] <= uio_in;
       3: bitmapIn[15:8] <= uio_in;
       4: attr[7:0] <= uio_in;

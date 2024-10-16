@@ -22,7 +22,8 @@ module styler_linegen (
 	input wire cursorBottom,
 	input wire yPreMirror,
 	input wire yPostMirror,
-	output wire [3:0] scanlineOut,
+	output wire [3:0] bitmapScanline,
+	output wire [3:0] effectScanline,
 	output wire inverseOut,
 	output wire faintOut,
 	output wire faintPhaseOut,
@@ -30,22 +31,22 @@ module styler_linegen (
 );
 
 	wire [3:0] s0 = scanlineIn;
-	wire [3:0] s1 = yPreMirror ? (s0 ^ 4'hF) : s0;
-
-	wire sl0 = lineEnable & (underline | doubleUnderline | dottedUnderline) & (doubleUnderline ? (s1 == 13 || s1 == 15) : (s1 == 13));
-	wire sl1 = lineEnable & (strikethru | doubleStrikethru | dottedStrikethru) & (doubleStrikethru ? (s1 == 6 || s1 == 8) : (s1 == 7));
-	wire sl2 = lineEnable & (overline | doubleOverline | dottedOverline) & (doubleOverline ? (s1 == 0 || s1 == 2) : (s1 == 0));
-	wire solidLine = sl0 | sl1 | sl2;
-	wire dottedLine = (sl0 & dottedUnderline) | (sl1 & dottedStrikethru) | (sl2 & dottedOverline);
 	wire cursor = cursorEnable & (cursorPhase | ~cursorBlink) & (
-		(~(cursorTop | cursorBottom)) | (cursorTop & (s1 < 3)) | (cursorBottom & (s1 > 12))
+		(~(cursorTop | cursorBottom)) | (cursorTop & (s0 < 3)) | (cursorBottom & (s0 > 12))
 	);
 
+	wire [3:0] s1 = yPostMirror ? (s0 ^ 4'hF) : s0;
 	wire [3:0] s2 = yscale ? {1'b0, s1[3:1]} : s1;
 	wire [3:0] s3 = yoffset ? (s2 ^ 4'h8) : s2;
-	wire [3:0] s4 = yPostMirror ? (s3 ^ 4'hF) : s3;
 
-	assign scanlineOut = s4;
+	wire sl0 = lineEnable & (underline | doubleUnderline | dottedUnderline) & (doubleUnderline ? (s3 == 13 || s3 == 15) : (s3 == 13));
+	wire sl1 = lineEnable & (strikethru | doubleStrikethru | dottedStrikethru) & (doubleStrikethru ? (s3 == 6 || s3 == 8) : (s3 == 7));
+	wire sl2 = lineEnable & (overline | doubleOverline | dottedOverline) & (doubleOverline ? (s3 == 0 || s3 == 2) : (s3 == 0));
+	wire dottedLine = (sl0 & dottedUnderline) | (sl1 & dottedStrikethru) | (sl2 & dottedOverline);
+	wire solidLine = sl0 | sl1 | sl2;
+
+	assign effectScanline = s3;
+	assign bitmapScanline = yPreMirror ? (s3 ^ 4'hF) : s3;
 	assign inverseOut = inverse ^ cursor;
 	assign faintOut = faint | dottedLine;
 	assign faintPhaseOut = faintPhase ^ s1[0];
@@ -96,7 +97,7 @@ module styler_style (
 		b4[11], b4[11], b4[10], b4[10], b4[9], b4[9], b4[8], b4[8]
 	} : b4;
 	wire [15:0] b6 = solidLine ? 16'hFFFF : b5;
-	wire [15:0] b7 = faint ? (b6 & (faintPhase ? 16'hAAAA : 16'h5555)) : b6;
+	wire [15:0] b7 = faint ? (b6 & (faintPhase ? 16'h5555 : 16'hAAAA)) : b6;
 
 	assign bitmapOut = b7;
 
@@ -120,7 +121,7 @@ module styler_invert (
 
 	wire [15:0] b0 = bitmapIn;
 	wire [15:0] b1 = solidLine ? 16'hFFFF : b0;
-	wire [15:0] b2 = faint ? (b1 & (faintPhase ? 16'hAAAA : 16'h5555)) : b1;
+	wire [15:0] b2 = faint ? (b1 & (faintPhase ? 16'h5555 : 16'hAAAA)) : b1;
 	wire [15:0] b3 = hidden ? 16'h0000 : b2;
 	wire [15:0] b4 = (blink & blinkPhase & blinkEnable) ? 16'h0000 : b3;
 	wire [15:0] b5 = (alternate & (blinkPhase | ~blinkEnable)) ? (b4 ^ 16'hFFFF) : b4;
@@ -176,6 +177,7 @@ module styler (
 	output wire [15:0] bitmapOut
 );
 
+	wire [3:0] scanlineInt;
 	wire inverseInt;
 	wire faintInt;
 	wire faintPhaseInt;
@@ -207,6 +209,7 @@ module styler (
 		yPreMirror,
 		yPostMirror,
 		scanlineOut,
+		scanlineInt,
 		inverseInt,
 		faintInt,
 		faintPhaseInt,
@@ -224,7 +227,7 @@ module styler (
 		italic,
 		reverseItalic,
 		xPreMirror,
-		scanlineOut,
+		scanlineInt,
 		bitmapInt
 	);
 

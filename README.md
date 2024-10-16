@@ -5,10 +5,10 @@
 ## How it works
 
 The styler chip is used to transform a 16x16 character glyph bitmap based on a
-set of text mode attributes. It consists of a 4-bit scanline register, a 6-bit
+set of text mode attributes. It consists of a 4-bit scanline register, an 8-bit
 control register, a 16-bit bitmap register, and a 25-bit attribute register.
 Additionally, three independent input lines are used to control polarity of
-dim text (even or odd pixels), text blink rate, and cursor blink rate.
+faint text (even or odd pixels), text and cursor blink rate, and cursor position.
 
 Typical use of the styler chip follows these steps:
 
@@ -45,7 +45,8 @@ The register layout is as follows:
 | 1       | 3    | Enable cursor.                                                    |
 | 1       | 4    | Enable character underline, strikethrough, overline attributes.   |
 | 1       | 5    | Enable character blink, alternate attributes.                     |
-| 1       | 6-7  | Input: ignored; output: 0.                                        |
+| 1       | 6    | Reserved.                                                         |
+| 1       | 7    | Reserved.                                                         |
 | 2       | 0-7  | Right half of character glyph bitmap.                             |
 | 3       | 0-7  | Left half of character glyph bitmap.                              |
 | 4       | 0    | X offset. (Determines which half of a double-width character.)    |
