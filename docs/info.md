@@ -6,7 +6,11 @@ control register, a 16-bit bitmap register, and a 25-bit attribute register.
 Additionally, three independent input lines are used to control polarity of
 faint text (even or odd pixels), text and cursor blink rate, and cursor position.
 
-![](styler.gif)
+![](styler1.png)
+![](styler2.png)
+![](styler3.gif)
+![](styler4.png)
+![](styler5.gif)
 
 Typical use of the styler chip follows these steps:
 
