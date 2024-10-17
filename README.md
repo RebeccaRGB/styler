@@ -10,6 +10,44 @@ control register, a 16-bit bitmap register, and a 25-bit attribute register.
 Additionally, three independent input lines are used to control polarity of
 faint text (even or odd pixels), text and cursor blink rate, and cursor position.
 
+<table>
+  <tr>
+    <td align="center"><img src="docs/normal.png" width="129" height="129"><br>Normal</td>
+    <td align="center"><img src="docs/xmirror.png" width="129" height="129"><br>X-Mirror</td>
+    <td align="center"><img src="docs/xscale.png" width="129" height="129"><br>X-Scale</td>
+    <td align="center"><img src="docs/xoffset.png" width="129" height="129"><br>X-Offset</td>
+    <td align="center"><img src="docs/ymirror.png" width="129" height="129"><br>Y-Mirror</td>
+  </tr>
+  <tr>
+    <td align="center"><img src="docs/yscale.png" width="129" height="129"><br>Y-Scale</td>
+    <td align="center"><img src="docs/yoffset.png" width="129" height="129"><br>Y-Offset</td>
+    <td align="center"><img src="docs/bold.png" width="129" height="129"><br>Bold</td>
+    <td align="center"><img src="docs/italic.png" width="129" height="129"><br>Italic</td>
+    <td align="center"><img src="docs/italic-rev.png" width="129" height="129"><br>Reverse Italic</td>
+  </tr>
+  <tr>
+    <td align="center"><img src="docs/faint.png" width="129" height="129"><br>Faint</td>
+    <td align="center"><img src="docs/blink.gif" width="129" height="129"><br>Blink</td>
+    <td align="center"><img src="docs/alternate.gif" width="129" height="129"><br>Alternate</td>
+    <td align="center"><img src="docs/inverse.png" width="129" height="129"><br>Inverse</td>
+    <td align="center"><img src="docs/hidden.png" width="129" height="129"><br>Hidden</td>
+  </tr>
+  <tr>
+    <td align="center"><img src="docs/underline.png" width="129" height="129"><br>Underline</td>
+    <td align="center"><img src="docs/underline-dbl.png" width="129" height="129"><br>Double Underline</td>
+    <td align="center"><img src="docs/underline-dot.png" width="129" height="129"><br>Dotted Underline</td>
+    <td align="center"><img src="docs/strike.png" width="129" height="129"><br>Strikethru</td>
+    <td align="center"><img src="docs/strike-dbl.png" width="129" height="129"><br>Double Strikethru</td>
+  </tr>
+  <tr>
+    <td align="center"><img src="docs/strike-dot.png" width="129" height="129"><br>Dotted Strikethru</td>
+    <td align="center"><img src="docs/overline.png" width="129" height="129"><br>Overline</td>
+    <td align="center"><img src="docs/overline-dbl.png" width="129" height="129"><br>Double Overline</td>
+    <td align="center"><img src="docs/overline-dot.png" width="129" height="129"><br>Dotted Overline</td>
+    <td align="center"><img src="docs/cursor-blink.gif" width="129" height="129"><br>Cursor</td>
+  </tr>
+</table>
+
 Typical use of the styler chip follows these steps:
 
 1. Set output enable (input 6) HIGH and write enable (input 7) LOW.
