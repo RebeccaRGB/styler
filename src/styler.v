@@ -39,9 +39,9 @@ module styler_linegen (
 	wire [3:0] s2 = yscale ? {1'b0, s1[3:1]} : s1;
 	wire [3:0] s3 = yoffset ? (s2 ^ 4'h8) : s2;
 
-	wire sl0 = lineEnable & (underline | doubleUnderline | dottedUnderline) & (doubleUnderline ? (s3 == 13 || s3 == 15) : (s3 == 13));
-	wire sl1 = lineEnable & (strikethru | doubleStrikethru | dottedStrikethru) & (doubleStrikethru ? (s3 == 6 || s3 == 8) : (s3 == 7));
-	wire sl2 = lineEnable & (overline | doubleOverline | dottedOverline) & (doubleOverline ? (s3 == 0 || s3 == 2) : (s3 == 0));
+	wire sl0 = lineEnable & (underline | doubleUnderline | dottedUnderline) & (doubleUnderline ? underline ? (s3 == 15) : (s3 == 13 || s3 == 15) : (s3 == 13));
+	wire sl1 = lineEnable & (strikethru | doubleStrikethru | dottedStrikethru) & (doubleStrikethru ? strikethru ? (s3 == 5 || s3 == 7 || s3 == 9) : (s3 == 6 || s3 == 8) : (s3 == 7));
+	wire sl2 = lineEnable & (overline | doubleOverline | dottedOverline) & (doubleOverline ? overline ? (s3 == 2) : (s3 == 0 || s3 == 2) : (s3 == 0));
 	wire dottedLine = (sl0 & dottedUnderline) | (sl1 & dottedStrikethru) | (sl2 & dottedOverline);
 	wire solidLine = sl0 | sl1 | sl2;
 
