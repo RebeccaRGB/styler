@@ -30,15 +30,18 @@ module tt_um_rebeccargb_styler (
 
   styler s(
     .scanlineIn(scanlineIn), .bitmapIn(bitmapIn),
-    .xoffset(attr[0]), .xscale(attr[1]), .yoffset(attr[2]), .yscale(attr[3]),
-    .xPreMirror(attr[4]), .xPostMirror(attr[5]), .yPreMirror(attr[6]), .yPostMirror(attr[7]),
+    .xoffset(attr[0]), .xscale(attr[1]),
+    .yoffset(attr[2]), .yscale(attr[3]),
+    .xPreMirror(attr[4]), .xPostMirror(attr[5]),
+    .yPreMirror(attr[6]), .yPostMirror(attr[7]),
     .bold(attr[8]), .faint(attr[9]), .italic(attr[10]), .reverseItalic(attr[11]),
     .blink(attr[12]), .alternate(attr[13]), .inverse(attr[14]), .hidden(attr[15]),
     .underline(attr[16]), .doubleUnderline(attr[17]), .dottedUnderline(attr[18]),
     .strikethru(attr[19]), .doubleStrikethru(attr[20]), .dottedStrikethru(attr[21]),
     .overline(attr[22]), .doubleOverline(attr[23]), .dottedOverline(attr[24]),
-    .blinkEnable(ctrl[5]), .lineEnable(ctrl[4]), .cursorEnable(cursorEnable),
-    .cursorBlink(ctrl[2]), .cursorTop(ctrl[1]), .cursorBottom(ctrl[0]),
+    .extraBold(ctrl[6]), .blinkEnable(ctrl[5]), .lineEnable(ctrl[4]),
+    .cursorEnable(cursorEnable), .cursorBlink(ctrl[2]),
+    .cursorTop(ctrl[1]), .cursorBottom(ctrl[0]),
     .faintPhase(faintPhase), .blinkPhase(blinkPhase), .cursorPhase(cursorPhase),
     .scanlineOut(scanlineOut), .bitmapOut(bitmapOut)
   );

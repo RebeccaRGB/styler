@@ -60,6 +60,7 @@ module styler_style (
 	input wire xoffset,
 	input wire xscale,
 	input wire bold,
+	input wire extraBold,
 	input wire faint,
 	input wire faintPhase,
 	input wire solidLine,
@@ -92,7 +93,7 @@ module styler_style (
 		b1
 	);
 
-	wire [15:0] b3 = bold ? (b2 | {1'b0, b2[15:1]}) : b2;
+	wire [15:0] b3 = bold ? extraBold ? ({b2[14:0], 1'b0} | b2 | {1'b0, b2[15:1]}) : (b2 | {1'b0, b2[15:1]}) : b2;
 	wire [15:0] b4 = xoffset ? {b3[7:0], b3[15:8]} : b3;
 	wire [15:0] b5 = xscale ? {
 		b4[15], b4[15], b4[14], b4[14], b4[13], b4[13], b4[12], b4[12],
@@ -168,6 +169,7 @@ module styler (
 	input wire overline,
 	input wire doubleOverline,
 	input wire dottedOverline,
+	input wire extraBold,
 	input wire blinkEnable,
 	input wire lineEnable,
 	input wire cursorEnable,
@@ -225,6 +227,7 @@ module styler (
 		xoffset,
 		xscale,
 		bold,
+		extraBold,
 		faintInt,
 		faintPhaseInt,
 		solidLineInt,
