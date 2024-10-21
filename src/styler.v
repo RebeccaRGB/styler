@@ -61,9 +61,6 @@ module styler_style (
 	input wire xscale,
 	input wire bold,
 	input wire extraBold,
-	input wire faint,
-	input wire faintPhase,
-	input wire solidLine,
 	input wire italic,
 	input wire reverse,
 	input wire xPreMirror,
@@ -100,10 +97,7 @@ module styler_style (
 		b4[11], b4[11], b4[10], b4[10], b4[9], b4[9], b4[8], b4[8]
 	} : b4;
 
-	wire [15:0] b6 = solidLine ? 16'hFFFF : b5;
-	wire [15:0] b7 = faint ? (b6 & (faintPhase ? 16'h5555 : 16'hAAAA)) : b6;
-
-	assign bitmapOut = b7;
+	assign bitmapOut = b5;
 
 endmodule
 
@@ -228,9 +222,6 @@ module styler (
 		xscale,
 		bold,
 		extraBold,
-		faintInt,
-		faintPhaseInt,
-		solidLineInt,
 		italic,
 		reverseItalic,
 		xPreMirror,
