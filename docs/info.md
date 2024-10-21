@@ -99,3 +99,5 @@ The `test.py` file covers a variety of test cases.
 
 The styler chip is intended to be used as part of a larger text mode
 video display hardware project.
+
+![](docs/tmvdh.svg)

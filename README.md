@@ -136,6 +136,8 @@ The `test.py` file covers a variety of test cases.
 The styler chip is intended to be used as part of a larger text mode
 video display hardware project.
 
+![](docs/tmvdh.svg)
+
 ## What is Tiny Tapeout?
 
 Tiny Tapeout is an educational project that aims to make it easier and cheaper than ever to get your digital and analog designs manufactured on a real chip.
